@@ -4,11 +4,11 @@ import { fetchSynonyms } from "../api/fetchSynonyms";
 export const useGetSynonyms = () => {
     const [synonyms, setSynonyms] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const getSynonyms = (word) => {
+    const getSynonyms = async (word) => {
         setIsLoading(true)
-        fetchSynonyms(word)
-            .then(setSynonyms)
-            .then(() => setIsLoading(false));
+        const synonyms = await fetchSynonyms(word)
+        setSynonyms(synonyms)
+        setIsLoading(false);
     }
     return { isLoading, getSynonyms, synonyms }
 }
